@@ -1,0 +1,70 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Común_n
+    style.
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: Tahoma, Verdana, Segoe, sans-serif;
+      }
+      body {
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 100%;
+        max-width: 440px;
+        margin: 0 auto;
+        background-color: white;
+      }
+      .notification {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 15px;
+      }
+      .content-cell {
+        padding: 20px;
+      }
+      .title, .subtitle, .name {
+        margin-bottom: 15px;
+      }
+      .name {
+        margin-right: 5px;
+      }
+      .social-media {
+        text-align: right;
+      }
+      .link {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
+      }
+      .logo {
+        width: 100%;
+        height: auto;
+      }
+
+  body
+    table.container(cellpadding="0" cellspacing="0" border="0")
+      tr
+        td.content-cell(align="center")
+          img.notification(src="https://vdigital.zapopan.gob.mx/public/notificaciones3_1.png" alt="Notificación zapopan")
+          h1.title Común_n
+          i.subtitle Espacios de trabajo colaborativos.
+          div(style="margin-bottom: 15px;")
+            span.name ¡Buen día!,
+            strong #{name}
+          div.main-content
+            block content
+          table(social-media cellpadding="0" cellspacing="0" border="0" width="100%")
+            tr
+              td(align="right")
+                a.link(href="https://www.facebook.com/ZapopanGob/" target="_blank")
+                  img.logo(src="https://vdigital.zapopan.gob.mx/public/facebook2x.png" alt="Página oficial de Facebook")
+                a.link(href="https://twitter.com/zapopangob/" target="_blank")
+                  img.logo(src="https://vdigital.zapopan.gob.mx/public/twitter2x.png" alt="Página oficial de X")
+                a.link(href="https://www.instagram.com/zapopangob/" target="_blank")
+                  img.logo(src="https://vdigital.zapopan.gob.mx/public/instagram2x.png" alt="Página oficial de Instagram")
