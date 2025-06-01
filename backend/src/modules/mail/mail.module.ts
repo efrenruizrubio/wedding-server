@@ -1,13 +1,11 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserModule } from '@modules/user/user.module';
 
 @Module({
   imports: [
-    forwardRef(() => UserModule),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

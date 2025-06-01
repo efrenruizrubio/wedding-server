@@ -26,6 +26,7 @@ async function bootstrap(): Promise<void> {
     .addBearerAuth()
     .setVersion('0.1.0')
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
