@@ -13,12 +13,12 @@ export class WeddingApplicationDto {
   readonly phone: string;
 
   @ApiProperty({ example: 'efren@email.com' })
-  @IsString()
+  @IsEmail()
   @IsNotEmpty()
   readonly email: string;
 
   @ApiProperty({ example: 'Name or link to the song' })
-  @IsEmail()
+  @IsString()
   @IsNotEmpty()
   readonly song: string;
 }

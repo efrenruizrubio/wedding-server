@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
 import { MailService } from '@modules/mail/mail.service';
-import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { WeddingApplication } from './wedding-application.entity';
 import { WeddingApplicationDto } from './wedding-application.dto';
@@ -14,5 +13,20 @@ export class WeddingApplicationService {
     @InjectRepository(WeddingApplication) private readonly repo: Repository<WeddingApplication>,
   ) {}
 
-  async create(payload: WeddingApplicationDto) {}
+  async findByEmail(email: string) {
+    return this.repo.findOne({ where: { email } });
+  }
+
+  async create({ email, ...payload }: WeddingApplicationDto) {
+    const emailExists = await this.findByEmail(email);
+
+    if (emailExists) {
+      return this.repo.save({ ...emailExists, ...payload });
+    }
+
+    const weddingApplication = this.repo.create({ email, ...payload });
+
+    await this.repo.save(weddingApplication);
+    return weddingApplication;
+  }
 }
