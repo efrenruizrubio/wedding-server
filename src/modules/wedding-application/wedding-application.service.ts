@@ -35,7 +35,7 @@ export class WeddingApplicationService {
       const emailExists = await this.findByEmail(email);
 
       if (emailExists) {
-        await this.sendEmail({ email, name: emailExists.name });
+        await this.sendEmail({ email, name: payload.name });
         return this.repo.save({ ...emailExists, ...payload });
       }
 
