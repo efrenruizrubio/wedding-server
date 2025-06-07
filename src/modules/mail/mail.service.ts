@@ -4,10 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MailService {
-  constructor(
-    private readonly mailService: MailerService,
-    private configService: ConfigService,
-  ) {}
+  constructor(private readonly mailService: MailerService, private configService: ConfigService) {}
 
   async sendMail({
     receiver,
@@ -17,12 +14,12 @@ export class MailService {
   }: {
     receiver: string;
     subject: string;
-    template: string;
+    template?: string;
     context?: Record<string, any>;
   }) {
     try {
       await this.mailService.sendMail({
-        from: `Común_n <${this.configService.get('EMAIL_USERNAME')}>`,
+        from: `Confirmación de asistencia Boda N&E<${this.configService.get('EMAIL_USERNAME')}>`,
         to: receiver,
         subject,
         template,

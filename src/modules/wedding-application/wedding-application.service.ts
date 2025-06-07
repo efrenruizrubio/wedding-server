@@ -17,16 +17,44 @@ export class WeddingApplicationService {
     return this.repo.findOne({ where: { email } });
   }
 
+  async sendEmail({ email, name }: { email: string; name: string }) {
+    await this.mailService.sendMail({
+      receiver: email,
+      subject: 'Confirmación de asistencia Boda N&E',
+      template: 'wedding-application',
+      context: {
+        name: name,
+        email,
+      },
+    });
+  }
+
   async create({ email, ...payload }: WeddingApplicationDto) {
-    const emailExists = await this.findByEmail(email);
+    try {
+      console.log(process.cwd() + '/src/modules/mail/templates');
+      const emailExists = await this.findByEmail(email);
 
-    if (emailExists) {
-      return this.repo.save({ ...emailExists, ...payload });
+      if (emailExists) {
+        await this.sendEmail({ email, name: emailExists.name });
+        return this.repo.save({ ...emailExists, ...payload });
+      }
+
+      const weddingApplication = this.repo.create({ email, ...payload });
+
+      await this.repo.save(weddingApplication);
+
+      await this.mailService.sendMail({
+        receiver: email,
+        subject: 'Confirmación de asistencia Boda N&E',
+        template: 'wedding-application',
+        context: {
+          name: weddingApplication.name,
+          email,
+        },
+      });
+      return weddingApplication;
+    } catch (e) {
+      console.log(e);
     }
-
-    const weddingApplication = this.repo.create({ email, ...payload });
-
-    await this.repo.save(weddingApplication);
-    return weddingApplication;
   }
 }
