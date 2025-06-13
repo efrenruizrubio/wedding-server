@@ -5,11 +5,13 @@ import { Repository } from 'typeorm';
 import { WeddingApplication } from './wedding-application.entity';
 import { WeddingApplicationDto } from './wedding-application.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { GoogleSheetsService } from '@modules/google-sheets/google-sheets.service';
 
 @Injectable()
 export class WeddingApplicationService {
   constructor(
     private readonly mailService: MailService,
+    private readonly sheetsService: GoogleSheetsService,
     @InjectRepository(WeddingApplication) private readonly repo: Repository<WeddingApplication>,
   ) {}
 
@@ -31,16 +33,18 @@ export class WeddingApplicationService {
 
   async create({ email, ...payload }: WeddingApplicationDto) {
     try {
+      let weddingApplication: WeddingApplication;
+
       const emailExists = await this.findByEmail(email);
 
       if (emailExists) {
-        await this.sendEmail({ email, name: payload.name });
-        return this.repo.save({ ...emailExists, ...payload });
+        weddingApplication = await this.repo.save({ ...emailExists, ...payload });
+      } else {
+        const newWeddingApplication = this.repo.create({ email, ...payload });
+        weddingApplication = await this.repo.save(newWeddingApplication);
       }
 
-      const weddingApplication = this.repo.create({ email, ...payload });
-
-      await this.repo.save(weddingApplication);
+      await this.sheetsService.writeToSheet(weddingApplication);
 
       await this.mailService.sendMail({
         receiver: email,
@@ -51,6 +55,7 @@ export class WeddingApplicationService {
           email,
         },
       });
+
       return weddingApplication;
     } catch (e) {
       console.log(e);

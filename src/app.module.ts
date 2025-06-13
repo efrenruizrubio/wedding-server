@@ -6,6 +6,7 @@ import { TypeOrmConfigService } from './database/database.service';
 import { MailModule } from '@modules/mail/mail.module';
 import { WeddingApplicationModule } from '@modules/wedding-application/wedding-application.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { GoogleSheetsModule } from './modules/google-sheets/google-sheets.module';
 
 @Global()
 @Module({
@@ -24,6 +25,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     }),
     MailModule,
     WeddingApplicationModule,
+    GoogleSheetsModule,
   ],
 })
 export class AppModule {}
