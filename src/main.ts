@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -17,23 +18,24 @@ async function bootstrap(): Promise<void> {
 
   app.enableCors({
     exposedHeaders: ['Content-Disposition'],
-    // origin: ['https://invitacion-boda-nere-y-efren.netlify.app', 'https://invitacion-boda-nere-y-efren.netlify.app/'],
-    origin: '*'
+    origin: configService.get('CORS_ORIGIN'),
   });
 
-  // const config = new DocumentBuilder()
-  //   .setTitle('Auth Base')
-  //   .setDescription('API description for Auth Base')
-  //   .addBearerAuth()
-  //   .setVersion('0.1.0')
-  //   .build();
+  if (configService.get('DOCUMENTATION_ENABLED')) {
+    const config = new DocumentBuilder()
+      .setTitle('Auth Base')
+      .setDescription('API description for Auth Base')
+      .addBearerAuth()
+      .setVersion('0.1.0')
+      .build();
 
-  // const document = SwaggerModule.createDocument(app, config);
-  // SwaggerModule.setup('docs', app, document, {
-  //   swaggerOptions: {
-  //     persistAuthorization: true,
-  //   },
-  // });
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('docs', app, document, {
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
+    });
+  }
 
   await app.listen(configService.get('APP_PORT') ?? 5001);
 }
