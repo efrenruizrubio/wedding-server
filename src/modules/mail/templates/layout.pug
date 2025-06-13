@@ -3,54 +3,24 @@ html(lang="es")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    title Común_n
+    title Boda N&E
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
     style.
-      * {
-        margin: 0;
-        padding: 0;
-        font-family: Tahoma, Verdana, Segoe, sans-serif;
-      }
-      .container {
+      body {
         width: 100%;
-        max-width: 440px;
+        text-align: center;
+        font-size: 18px;
+        }
+        main {
         margin: 0 auto;
-        background-color: white;
-      }
-      .notification {
-        width: 100%;
-        max-width: 400px;
-        margin-bottom: 15px;
-      }
-      .content-cell {
+        width: 33%;
+        background: #f0f0f0;
         padding: 20px;
-      }
-      .title, .subtitle, .name {
-        margin-bottom: 15px;
-      }
-      .name {
-        margin-right: 5px;
-      }
-      .social-media {
-        text-align: right;
-      }
-      .link {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        margin-left: 5px;
-      }
-      .logo {
-        width: 100%;
-        height: auto;
-      }
+        }
 
   body
-    table.container(cellpadding="0" cellspacing="0" border="0")
-      tr
-        td.content-cell(align="center")
-          h1.title Confirmación de asistencia Boda N&E
-          div(style="margin-bottom: 15px;")
-            span.name ¡Buen día!
-            strong #{name}
-          div.main-content
+    main
+      h1 Querido/a #{name}
             block content

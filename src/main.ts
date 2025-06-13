@@ -17,7 +17,8 @@ async function bootstrap(): Promise<void> {
 
   app.enableCors({
     exposedHeaders: ['Content-Disposition'],
-    origin: ['https://invitacion-boda-nere-y-efren.netlify.app', 'https://invitacion-boda-nere-y-efren.netlify.app/'],
+    // origin: ['https://invitacion-boda-nere-y-efren.netlify.app', 'https://invitacion-boda-nere-y-efren.netlify.app/'],
+    origin: '*'
   });
 
   // const config = new DocumentBuilder()

@@ -31,7 +31,6 @@ export class WeddingApplicationService {
 
   async create({ email, ...payload }: WeddingApplicationDto) {
     try {
-      console.log(process.cwd() + '/src/modules/mail/templates');
       const emailExists = await this.findByEmail(email);
 
       if (emailExists) {

@@ -19,7 +19,7 @@ export class MailService {
   }) {
     try {
       await this.mailService.sendMail({
-        from: `Confirmación de asistencia Boda N&E<${this.configService.get('EMAIL_USERNAME')}>`,
+        from: `Boda N&E<${this.configService.get('EMAIL_USERNAME')}>`,
         to: receiver,
         subject,
         template,
