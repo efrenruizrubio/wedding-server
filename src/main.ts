@@ -18,6 +18,7 @@ async function bootstrap(): Promise<void> {
 
   app.enableCors({
     exposedHeaders: ['Content-Disposition'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     origin: configService.get('CORS_ORIGIN'),
   });
 
